@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MamaCare - Telemedicine for Expecting Mothers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-baby"></i>
+                <span>MamaCare</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#appointment">Appointments</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#mood-tracker">Mood Tracker</a></li>
+                    <li><a href="#community">Community</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button class="btn btn-primary" id="login-btn">Login / Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login/Signup Modal -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="auth-tabs">
+                <button class="auth-tab-btn active" data-tab="login">Login</button>
+                <button class="auth-tab-btn" data-tab="signup">Sign Up</button>
+            </div>
+            <div class="auth-form-container">
+                <form id="login-form" class="auth-form active">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                
+                <form id="signup-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="signup-name">Full Name</label>
+                        <input type="text" id="signup-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-due-date">Due Date (if known)</label>
+                        <input type="date" id="signup-due-date" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profile-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>MY Profile</h2>
+            <div class="profile-info">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="profile-details">
+                        <h3 id="profile-name">User Name</h3>
+                        <p id="profile-email">user@example.com</p>
+                        <p id="profile-due-date">Due Date: Not specified</p>
+                    </div>
+                </div>
+                
+                <div class="profile-actions">
+                    <h3>Update Profile</h3>
+                    <form id="profile-form">
+                        <div class="form-group">
+                            <label for="profile-due-date-input">Due Date</label>
+                            <input type="date" id="profile-due-date-input" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-blood-type">Blood Type</label>
+                            <select id="profile-blood-type" class="form-control">
+                                <option value="">Select Blood Type</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-emergency-contact">Emergency Contact</label>
+                            <input type="text" id="profile-emergency-contact" class="form-control" placeholder="Name and phone number">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                    </form>
+                    
+                    <div class="change-password">
+                        <h3>Change Password</h3>
+                        <form id="password-form">
+                            <div class="form-group">
+                                <label for="current-password">Current Password</label>
+                                <input type="password" id="current-password" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="new-password">New Password</label>
+                                <input type="password" id="new-password" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm-password">Confirm New Password</label>
+                                <input type="password" id="confirm-password" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Change Password</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="container">
+        <div class="hero-image">
+            <img src="https://images.pexels.com/photos/5853666/pexels-photo-5853666.jpeg" alt="Happy pregnant woman">
+        </div>
+        <div class="hero-content">
+            <h1>Personalized Telemedicine for Your Pregnancy Journey</h1>
+            <p>Connect with healthcare professionals, track your pregnancy progress, and get the support you need - all from the comfort of your home.</p>
+            <div class="hero-cta">
+                <button class="btn btn-primary btn-large" id="hero-appointment-btn">
+                    <i class="fas fa-calendar-check"></i> Book an Appointment
+                </button>
+                <button class="btn btn-secondary btn-large" id="hero-learn-more">
+                    <i class="fas fa-info-circle"></i> Learn More
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Comprehensive Services</h2>
+                <p>Everything you need for a healthy pregnancy in one place</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="https://images.pexels.com/photos/7195434/pexels-photo-7195434.jpeg" alt="">
+                    </div>
+                    <h3>Virtual Consultations</h3>
+                    <p>Schedule video appointments with obstetricians, midwives, and specialists without leaving your home.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="https://images.pexels.com/photos/7088841/pexels-photo-7088841.jpeg" alt="">
+                    </div>
+                    <h3>Health Tracking</h3>
+                    <p>Monitor your weight, blood pressure, fetal movements, and more with our easy-to-use tools.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="https://images.pexels.com/photos/7089047/pexels-photo-7089047.jpeg" alt="">
+                    </div>
+                    <h3>Digital Records</h3>
+                    <p>Access your medical records, test results, and ultrasound images anytime, anywhere.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="https://images.pexels.com/photos/7484481/pexels-photo-7484481.jpeg" alt="">
+                    </div>
+                    <h3>Sentiment Analysis</h3>
+                    <p>Our AI technology analyzes your mood from journal entries to provide personalized support.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="https://images.pexels.com/photos/7089037/pexels-photo-7089037.jpeg" alt="">
+                    </div>
+                    <h3>Community Support</h3>
+                    <p>Connect with other expecting mothers in a safe, moderated community forum.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="https://images.pexels.com/photos/11280558/pexels-photo-11280558.jpeg" alt="">
+                    </div>
+                    <h3>Educational Resources</h3>
+                    <p>Access curated articles, videos, and guides for each stage of your pregnancy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment Section -->
+    <section class="appointment" id="appointment">
+        <div class="container appointment-container">
+            <div class="appointment-text">
+                <h2>Schedule Your Virtual Appointment</h2>
+                <p>Meet with certified healthcare professionals specializing in prenatal care. Choose a time that works best for you and receive secure, HIPAA-compliant virtual care.</p>
+                
+                <div class="doctor-availability">
+                    <h3>Doctor Availability</h3>
+                    <div class="availability-list">
+                        <div class="availability-item">
+                            <div class="doctor-info">
+                                <img src="https://images.pexels.com/photos/3714743/pexels-photo-3714743.jpeg"  alt="" class="doctor-img">
+                                <h4>Dr. Sarah Johnson</h4>
+                                <p>Obstetrician</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span>4.5 (128 reviews)</span>
+                                </div>
+                            </div>
+                            <div class="availability-status available">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Available Today</span>
+                            </div>
+                        </div>
+                        <div class="availability-item">
+                            <div class="doctor-info">
+                                <img src="https://images.pexels.com/photos/5452255/pexels-photo-5452255.jpeg" alt="" class="doctor-img">
+                                <h4>Dr. Michael Chen</h4>
+                                <p>Midwife</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span>4.8 (92 reviews)</span>
+                                </div>
+                            </div>
+                            <div class="availability-status available">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Available Tomorrow</span>
+                            </div>
+                        </div>
+                        <div class="availability-item">
+                            <div class="doctor-info">
+                                <img src="https://images.pexels.com/photos/5452256/pexels-photo-5452256.jpeg" alt="" class="doctor-img">
+                                <h4>Dr. Emily Williams</h4>
+                                <p>Nutritionist</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span>4.9 (75 reviews)</span>
+                                </div>
+                            </div>
+                            <div class="availability-status unavailable">
+                                <i class="fas fa-times-circle"></i>
+                                <span>On Leave Until 10/25</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="appointment-form">
+                <h3 style="color: var(--dark); margin-bottom: 20px;">Book Now</h3>
+                <form id="appointment-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" placeholder="Your Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="due-date">Due Date</label>
+                        <input type="date" id="due-date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="doctor">Preferred Doctor</label>
+                        <select id="doctor" class="form-control">
+                            <option value="">Select a Doctor</option>
+                            <option value="dr-johnson">Dr. Johnson - Obstetrician</option>
+                            <option value="dr-chen">Dr. Chen - Midwife</option>
+                            <option value="dr-williams">Dr. Williams - Nutritionist</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Appointment Date</label>
+                        <input type="date" id="date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Preferred Time</label>
+                        <select id="time" class="form-control">
+                            <option value="">Select Time</option>
+                            <option value="09:00">9:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="13:00">1:00 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="reason">Reason for Visit</label>
+                        <textarea id="reason" class="form-control" rows="3" placeholder="Briefly describe the reason for your appointment"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Schedule Appointment</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Due Date Calculator -->
+    <section class="due-date-calculator">
+        <div class="container">
+            <div class="section-title">
+                <h2>Due Date Calculator</h2>
+                <p>Not sure about your due date? Calculate it based on your last menstrual period</p>
+            </div>
+            <div class="calculator-container">
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label for="lmp-date">First day of your last menstrual period:</label>
+                        <input type="date" id="lmp-date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="cycle-length">Average cycle length (days):</label>
+                        <input type="number" id="cycle-length" class="form-control" value="28" min="21" max="35">
+                    </div>
+                    <button id="calculate-due-date" class="btn btn-primary">Calculate Due Date</button>
+                </div>
+                <div class="calculator-result">
+                    <h3>Your Estimated Due Date</h3>
+                    <div id="due-date-result" class="result-box">
+                        <p>Enter your information to calculate your due date</p>
+                    </div>
+                    <div class="pregnancy-progress">
+                        <h4>Your Pregnancy Progress</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="pregnancy-progress"></div>
+                        </div>
+                        <p id="pregnancy-weeks">0 weeks</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mood Tracker Section -->
+    <section class="mood-tracker" id="mood-tracker">
+        <div class="container">
+            <div class="section-title">
+                <h2>Mood Tracker</h2>
+                <p>Track your emotional well-being with our sentiment analysis tool</p>
+            </div>
+            <div class="mood-container">
+                <p>How are you feeling today? Share your thoughts and we'll help you understand your emotional state.</p>
+                <form class="mood-form">
+                    <div class="form-group">
+                        <textarea id="mood-text" placeholder="Write about your day, how you're feeling, or any concerns you have..."></textarea>
+                    </div>
+                    <button type="button" id="analyze-btn" class="btn btn-primary">Analyze My Mood</button>
+                </form>
+                <div id="mood-result" class="mood-result">
+                    <h4>Your Mood Analysis:</h4>
+                    <p id="mood-text-result"></p>
+                    <p id="sentiment-score"></p>
+                    <div id="mood-suggestions"></div>
+                </div>
+                
+                <div class="mood-history">
+                    <h3>Your Mood History</h3>
+                    <div class="history-chart">
+                        <canvas id="mood-chart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community" id="community">
+        <div class="container">
+            <div class="section-title">
+                <h2>Community Feedback</h2>
+                <p>See what other mothers are saying about their experience with MamaCare</p>
+            </div>
+            <div class="testimonials">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-text">
+                            <p>"MamaCare has been a lifesaver during my pregnancy. The doctors are so caring and the mood tracker helps me stay on top of my emotional health."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="https://images.pexels.com/photos/7552313/pexels-photo-7552313.jpeg" alt="">
+                            </div>
+                            <div class="author-details">
+                                <h4>Jessica T.</h4>
+                                <p>32 weeks pregnant</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-text">
+                            <p>"The due date calculator was spot on! I was unsure about my dates, but the calculator helped me understand my timeline better."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="https://images.pexels.com/photos/27542905/pexels-photo-27542905.jpeg" alt="">
+                            </div>
+                            <div class="author-details">
+                                <h4>Maria L.</h4>
+                                <p>First-time mom</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-text">
+                            <p>"As a busy working mom, having virtual appointments has been incredible. I don't have to take time off work for check-ups anymore."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="https://images.pexels.com/photos/33689484/pexels-photo-33689484.jpeg" alt="">
+                            </div>
+                            <div class="author-details">
+                                <h4>Sophie K.</h4>
+                                <p>Second pregnancy</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="community-forum">
+                <h3>Join the Conversation</h3>
+                <p>Connect with other expecting mothers in our community forum</p>
+                <div class="forum-preview">
+                    <div class="forum-topic">
+                        <h4><i class="fas fa-comment"></i> Morning sickness remedies that actually work</h4>
+                        <p>24 comments • Started by Amanda 3 days ago</p>
+                    </div>
+                    <div class="forum-topic">
+                        <h4><i class="fas fa-comment"></i> Second trimester energy boost tips</h4>
+                        <p>18 comments • Started by Rachel 1 week ago</p>
+                    </div>
+                    <div class="forum-topic">
+                        <h4><i class="fas fa-comment"></i> Preparing siblings for the new arrival</h4>
+                        <p>32 comments • Started by Danielle 2 days ago</p>
+                    </div>
+                </div>
+                <button class="btn btn-primary">View All Discussions</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="resources" id="resources">
+        <div class="container">
+            <div class="section-title">
+                <h2>Pregnancy Resources</h2>
+                <p>Educational content tailored to your pregnancy stage</p>
+            </div>
+            <div class="resource-tabs">
+                <button class="tab-btn active" data-tab="first-trimester">First Trimester</button>
+                <button class="tab-btn" data-tab="second-trimester">Second Trimester</button>
+                <button class="tab-btn" data-tab="third-trimester">Third Trimester</button>
+                <button class="tab-btn" data-tab="postpartum">Postpartum</button>
+            </div>
+            
+            <div class="tab-content active" id="first-trimester-content">
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/4148018/pexels-photo-4148018.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                            <div class="resource-overlay"></div>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Early Pregnancy Symptoms</h3>
+                            <p>Learn what to expect during the first weeks of pregnancy and how to manage common symptoms.</p>
+                            <a href="https://www.babycenter.com/getting-pregnant/how-to-get-pregnant/pregnancy-symptoms_1146468" class="btn btn-primary">Read Article</a>
+                        </div>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/7485093/pexels-photo-7485093.jpeg');">
+                            <div class="resource-overlay"></div>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Nutrition Guide</h3>
+                            <p>Discover the essential nutrients you and your baby need during the first trimester.</p>
+                            <a href="https://www.acog.org/womens-health/faqs/nutrition-during-pregnancy" class="btn btn-primary">Read Article</a>
+                        </div>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/8436711/pexels-photo-8436711.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                            <div class="resource-overlay"></div>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Safe Exercises</h3>
+                            <p>Stay active with these safe and recommended exercises for early pregnancy.</p>
+                            <a href="https://www.miracleshealth.com/blog/safe-exercises-for-pregnant-woman" class="btn btn-primary">Read Article</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="second-trimester-content">
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/4001292/pexels-photo-4001292.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                            <div class="resource-overlay"></div>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Baby Development in Second Trimester</h3>
+                            <p>Learn how your baby is growing and developing during weeks 13-27 of pregnancy.</p>
+                            <a href="https://www.nhs.uk/start-for-life/pregnancy/week-by-week-guide-to-pregnancy/2nd-trimester/week-13/" class="btn btn-primary">Read Article</a>
+                        </div>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/5717636/pexels-photo-5717636.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                            <div class="resource-overlay"></div>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Managing Pregnancy Glow</h3>
+                            <p>Tips for skincare and hair care during the second trimester when hormones are changing.</p>
+                            <a href="https://medlineplus.gov/ency/patientinstructions/000611.htm#:~:text=To%20help%20prevent%20these%20changes,months%20after%20you%20give%20birth." class="btn btn-primary">Read Article</a>
+                        </div>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/6207857/pexels-photo-6207857.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                            <div class="resource-overlay"></div>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Preparing Your Home</h3>
+                            <p>Start getting your home ready for the new arrival with these second trimester tips.</p>
+                            <a href="https://www.themotherbabycenter.org/blog/2022/05/second-trimester-checklist/" class="btn btn-primary">Read Article</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="third-trimester-content">
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/4473878/pexels-photo-4473878.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                            <div class="resource-overlay"></div>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Final Preparations</h3>
+                            <p>Everything you need to do and know as you approach your due date.</p>
+                            <a href="https://www.themotherbabycenter.org/blog/2022/09/third-trimester-checklist/" class="btn btn-primary">Read Article</a>
+                        </div>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/5207004/pexels-photo-5207004.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                            <div class="resource-overlay"></div>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Labor Signs</h3>
+                            <p>Learn to recognize the signs of labor and when to contact your healthcare provider.</p>
+                            <a href="https://www.marchofdimes.org/find-support/topics/birth/contractions-and-signs-labor" class="btn btn-primary">Read Article</a>
+                        </div>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/6682980/pexels-photo-6682980.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                            <div class="resource-overlay"></div>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Hospital Bag Checklist</h3>
+                            <p>What to pack for your hospital stay when it's time to deliver your baby.</p>
+                            <a href="https://www.babycenter.com/pregnancy/your-body/packing-for-the-hospital-or-birth-center_185" class="btn btn-primary">Read Article</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="postpartum-content">
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/7725186/pexels-photo-7725186.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                            <div class="resource-overlay"></div>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Postpartum Recovery</h3>
+                            <p>What to expect in the first weeks after delivery and how to care for yourself.</p>
+                            <a href="https://my.clevelandclinic.org/health/articles/postpartum" class="btn btn-primary">Read Article</a>
+                        </div>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/7725172/pexels-photo-7725172.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                            <div class="resource-overlay"></div>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Breastfeeding Basics</h3>
+                            <p>A guide to getting started with breastfeeding your newborn.</p>
+                            <a href="https://my.clevelandclinic.org/health/articles/5182-breastfeeding" class="btn btn-primary">Read Article</a>
+                        </div>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/7725156/pexels-photo-7725156.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                            <div class="resource-overlay"></div>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Newborn Care</h3>
+                            <p>Essential information for caring for your newborn in the first few weeks.</p>
+                            <a href="https://kidshealth.org/en/parents/guide-parents.html" class="btn btn-primary">Read Article</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MamaCare</h3>
+                    <p>Providing comprehensive telemedicine services for expecting mothers throughout their pregnancy journey.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Services</a></li>
+                        <li><a href="#appointment">Appointments</a></li>
+                        <li><a href="#resources">Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> (800) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> support@mamacare.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Health St, Medical City</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 MamaCare Telemedicine. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>
