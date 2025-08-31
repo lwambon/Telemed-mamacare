@@ -645,3 +645,319 @@ function formatDateShort(dateString) {
         day: 'numeric' 
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+// User data structure
+let currentUser = null;
+let users = JSON.parse(localStorage.getItem('users')) || [];
+let appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+let moodHistory = JSON.parse(localStorage.getItem('moodHistory')) || [];
+
+// Open user profile modal
+function openUserProfile() {
+    if (!currentUser) {
+        alert('Please login to view your profile');
+        document.getElementById('auth-modal').style.display = 'block';
+        return;
+    }
+    
+    const profileModal = document.getElementById('profile-modal');
+    const userAppointments = appointments.filter(apt => apt.userId === currentUser.id);
+    const userMoodHistory = moodHistory.filter(mood => mood.userId === currentUser.id);
+    const recentMood = userMoodHistory.slice(-30); // Last 30 days
+    
+    // Update profile details
+    document.getElementById('profile-name').textContent = currentUser.name;
+    document.getElementById('profile-email').textContent = currentUser.email;
+    document.getElementById('profile-due-date').textContent = currentUser.dueDate ? 
+        `Due Date: ${formatDate(currentUser.dueDate)}` : 'Due Date: Not specified';
+    
+    // Set form values
+    if (currentUser.dueDate) {
+        document.getElementById('profile-due-date-input').value = currentUser.dueDate;
+    }
+    
+    if (currentUser.bloodType) {
+        document.getElementById('profile-blood-type').value = currentUser.bloodType;
+    }
+    
+    if (currentUser.emergencyContact) {
+        document.getElementById('profile-emergency-contact').value = currentUser.emergencyContact;
+    }
+    
+    // Display appointments
+    displayUserAppointments(userAppointments);
+    
+    // Display mood analysis
+    displayMoodAnalysis(recentMood);
+    
+    profileModal.style.display = 'block';
+}
+
+// Display user appointments
+function displayUserAppointments(userAppointments) {
+    const appointmentsContainer = document.getElementById('user-appointments');
+    
+    if (userAppointments.length === 0) {
+        appointmentsContainer.innerHTML = '<p class="no-appointments">You have no upcoming appointments.</p>';
+        return;
+    }
+    
+    let appointmentsHTML = '<h3>Your Appointments</h3><div class="appointments-list">';
+    
+    userAppointments.forEach(apt => {
+        const aptDate = new Date(apt.date);
+        const now = new Date();
+        const isUpcoming = aptDate > now;
+        
+        appointmentsHTML += `
+            <div class="appointment-item ${isUpcoming ? 'upcoming' : 'past'}">
+                <div class="apt-info">
+                    <h4>Appointment with ${apt.doctor}</h4>
+                    <p><strong>Date:</strong> ${formatDate(apt.date)} at ${apt.time}</p>
+                    <p><strong>Reason:</strong> ${apt.reason}</p>
+                    <p class="apt-status">${isUpcoming ? 'Upcoming' : 'Completed'}</p>
+                </div>
+            </div>
+        `;
+    });
+    
+    appointmentsHTML += '</div>';
+    appointmentsContainer.innerHTML = appointmentsHTML;
+}
+
+// Display mood analysis
+function displayMoodAnalysis(recentMood) {
+    const moodContainer = document.getElementById('user-mood-analysis');
+    
+    if (recentMood.length === 0) {
+        moodContainer.innerHTML = '<p class="no-mood-data">No mood data available for the past 30 days.</p>';
+        return;
+    }
+    
+    // Count sentiment occurrences
+    const sentimentCount = {
+        POSITIVE: 0,
+        NEGATIVE: 0,
+        NEUTRAL: 0
+    };
+    
+    recentMood.forEach(entry => {
+        if (sentimentCount[entry.sentiment] !== undefined) {
+            sentimentCount[entry.sentiment]++;
+        }
+    });
+    
+    // Calculate percentages
+    const total = recentMood.length;
+    const positivePct = Math.round((sentimentCount.POSITIVE / total) * 100);
+    const negativePct = Math.round((sentimentCount.NEGATIVE / total) * 100);
+    const neutralPct = Math.round((sentimentCount.NEUTRAL / total) * 100);
+    
+    let moodHTML = `
+        <h3>Mood Analysis (Last 30 Days)</h3>
+        <div class="mood-summary">
+            <div class="mood-stats">
+                <div class="mood-stat positive">
+                    <span class="mood-label">Positive</span>
+                    <span class="mood-value">${positivePct}%</span>
+                </div>
+                <div class="mood-stat neutral">
+                    <span class="mood-label">Neutral</span>
+                    <span class="mood-value">${neutralPct}%</span>
+                </div>
+                <div class="mood-stat negative">
+                    <span class="mood-label">Negative</span>
+                    <span class="mood-value">${negativePct}%</span>
+                </div>
+            </div>
+            <div class="mood-chart-container">
+                <canvas id="mood-chart" width="400" height="200"></canvas>
+            </div>
+        </div>
+        <div class="mood-trends">
+            <h4>Your Mood Trends</h4>
+            <p>Based on your recent entries, you've been feeling mostly 
+            ${getDominantMood(sentimentCount)} recently.</p>
+        </div>
+    `;
+    
+    moodContainer.innerHTML = moodHTML;
+    
+    // Render chart
+    renderMoodChart(sentimentCount);
+}
+
+// Get dominant mood description
+function getDominantMood(sentimentCount) {
+    const max = Math.max(sentimentCount.POSITIVE, sentimentCount.NEGATIVE, sentimentCount.NEUTRAL);
+    
+    if (max === sentimentCount.POSITIVE) return 'positive';
+    if (max === sentimentCount.NEGATIVE) return 'a bit down';
+    return 'balanced';
+}
+
+// Render mood chart
+function renderMoodChart(sentimentCount) {
+    const ctx = document.getElementById('mood-chart').getContext('2d');
+    
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Positive', 'Neutral', 'Negative'],
+            datasets: [{
+                data: [sentimentCount.POSITIVE, sentimentCount.NEUTRAL, sentimentCount.NEGATIVE],
+                backgroundColor: [
+                    'rgba(76, 175, 80, 0.7)',
+                    'rgba(255, 152, 0, 0.7)',
+                    'rgba(244, 67, 54, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(76, 175, 80, 1)',
+                    'rgba(255, 152, 0, 1)',
+                    'rgba(244, 67, 54, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+}
+
+// Update the checkLoginStatus function
+function checkLoginStatus() {
+    const userData = localStorage.getItem('currentUser');
+    const loginBtn = document.getElementById('login-btn');
+    
+    if (userData) {
+        currentUser = JSON.parse(userData);
+        loginBtn.textContent = `${currentUser.name}'s Profile`;
+        loginBtn.removeEventListener('click', openAuthModal);
+        loginBtn.addEventListener('click', openUserProfile);
+    }
+}
+
+// Update the openAuthModal function
+function openAuthModal() {
+    document.getElementById('auth-modal').style.display = 'block';
+}
+
+// Update the handleLogin function to set currentUser
+function handleLogin() {
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    
+    // Find user
+    const user = users.find(u => u.email === email && u.password === password);
+    
+    if (user) {
+        // Set current user
+        currentUser = user;
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        
+        // Update UI
+        document.getElementById('login-btn').textContent = `${user.name}'s Profile`;
+        document.getElementById('auth-modal').style.display = 'none';
+        
+        // Show success message
+        alert(`Login successful! Welcome back, ${user.name}!`);
+    } else {
+        alert('Invalid email or password. Please try again.');
+    }
+}
+
+// Update the handleSignup function to set currentUser
+function handleSignup() {
+    const name = document.getElementById('signup-name').value;
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
+    const dueDate = document.getElementById('signup-due-date').value;
+    
+    // Check if user already exists
+    if (users.some(u => u.email === email)) {
+        alert('User with this email already exists. Please login instead.');
+        return;
+    }
+    
+    // Create new user
+    const newUser = {
+        id: Date.now(),
+        name,
+        email,
+        password,
+        dueDate,
+        bloodType: '',
+        emergencyContact: '',
+        createdAt: new Date().toISOString()
+    };
+    
+    // Add to users array
+    users.push(newUser);
+    currentUser = newUser;
+    
+    // Save to localStorage
+    localStorage.setItem('users', JSON.stringify(users));
+    localStorage.setItem('currentUser', JSON.stringify(newUser));
+    
+    // Update UI
+    document.getElementById('login-btn').textContent = `${name}'s Profile`;
+    document.getElementById('auth-modal').style.display = 'none';
+    
+    // Show success message
+    alert('Account created successfully! Welcome to MamaCare!');
+}
+
+// Update the login button click event
+loginBtn.addEventListener('click', function() {
+    if (currentUser) {
+        openUserProfile();
+    } else {
+        openAuthModal();
+    }
+});
+
+// Mobile menu functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    
+    if (mobileMenuBtn && navMenu) {
+        mobileMenuBtn.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+        
+        // Close menu when clicking on a link
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('nav') && !event.target.closest('.mobile-menu-btn')) {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+            }
+        });
+    }
+});

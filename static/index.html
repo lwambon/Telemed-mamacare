@@ -8,28 +8,35 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header -->
     <header>
-        <div class="container header-content">
-            <div class="logo">
-                <i class="fas fa-baby"></i>
-                <span>MamaCare</span>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#appointment">Appointments</a></li>
-                    <li><a href="#resources">Resources</a></li>
-                    <li><a href="#mood-tracker">Mood Tracker</a></li>
-                    <li><a href="#community">Community</a></li>
-                </ul>
-            </nav>
-            <div class="user-actions">
-                <button class="btn btn-primary" id="login-btn">Login / Sign Up</button>
-            </div>
+    <div class="container header-content">
+        <div class="logo">
+            <img src="https://img.freepik.com/premium-vector/beautiful-silhouette-mother-holding-her-baby-depicting-love-tenderness-parent-child_686498-14880.jpg" alt="MamaCare Logo">
+            <span>MamaCare</span>
         </div>
-    </header>
+        
+        <button class="mobile-menu-btn" id="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <nav>
+            <ul id="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#appointment">Appointments</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#mood-tracker">Mood Tracker</a></li>
+                <li><a href="#community">Community</a></li>
+            </ul>
+        </nav>
+        
+        <div class="user-actions">
+            <button class="btn btn-primary" id="login-btn">Login / Sign Up</button>
+        </div>
+    </div>
+</header>
 
     <!-- Login/Signup Modal -->
     <div id="auth-modal" class="modal">
@@ -76,73 +83,82 @@
     </div>
 
     <!-- Profile Modal -->
-    <div id="profile-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>MY Profile</h2>
-            <div class="profile-info">
-                <div class="profile-header">
-                    <div class="profile-avatar">
-                        <i class="fas fa-user-circle"></i>
-                    </div>
-                    <div class="profile-details">
-                        <h3 id="profile-name">User Name</h3>
-                        <p id="profile-email">user@example.com</p>
-                        <p id="profile-due-date">Due Date: Not specified</p>
-                    </div>
+    <!-- Profile Modal -->
+<div id="profile-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="profile-info">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user-circle"></i>
                 </div>
-                
-                <div class="profile-actions">
-                    <h3>Update Profile</h3>
-                    <form id="profile-form">
-                        <div class="form-group">
-                            <label for="profile-due-date-input">Due Date</label>
-                            <input type="date" id="profile-due-date-input" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="profile-blood-type">Blood Type</label>
-                            <select id="profile-blood-type" class="form-control">
-                                <option value="">Select Blood Type</option>
-                                <option value="A+">A+</option>
-                                <option value="A-">A-</option>
-                                <option value="B+">B+</option>
-                                <option value="B-">B-</option>
-                                <option value="AB+">AB+</option>
-                                <option value="AB-">AB-</option>
-                                <option value="O+">O+</option>
-                                <option value="O-">O-</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="profile-emergency-contact">Emergency Contact</label>
-                            <input type="text" id="profile-emergency-contact" class="form-control" placeholder="Name and phone number">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Update Profile</button>
-                    </form>
-                    
-                    <div class="change-password">
-                        <h3>Change Password</h3>
-                        <form id="password-form">
-                            <div class="form-group">
-                                <label for="current-password">Current Password</label>
-                                <input type="password" id="current-password" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="new-password">New Password</label>
-                                <input type="password" id="new-password" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="confirm-password">Confirm New Password</label>
-                                <input type="password" id="confirm-password" class="form-control" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Change Password</button>
-                        </form>
+                <div class="profile-details">
+                    <h3 id="profile-name">User Name</h3>
+                    <p id="profile-email">user@example.com</p>
+                    <p id="profile-due-date">Due Date: Not specified</p>
+                </div>
+            </div>
+            
+            <!-- Appointments Section -->
+            <div class="profile-section" id="user-appointments">
+                <!-- Dynamically populated with JavaScript -->
+            </div>
+            
+            <!-- Mood Analysis Section -->
+            <div class="profile-section" id="user-mood-analysis">
+                <!-- Dynamically populated with JavaScript -->
+            </div>
+            
+            <div class="profile-actions">
+                <h3>Update Profile</h3>
+                <form id="profile-form">
+                    <div class="form-group">
+                        <label for="profile-due-date-input">Due Date</label>
+                        <input type="date" id="profile-due-date-input" class="form-control">
                     </div>
+                    <div class="form-group">
+                        <label for="profile-blood-type">Blood Type</label>
+                        <select id="profile-blood-type" class="form-control">
+                            <option value="">Select Blood Type</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-emergency-contact">Emergency Contact</label>
+                        <input type="text" id="profile-emergency-contact" class="form-control" placeholder="Name and phone number">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </form>
+                
+                <div class="change-password">
+                    <h3>Change Password</h3>
+                    <form id="password-form">
+                        <div class="form-group">
+                            <label for="current-password">Current Password</label>
+                            <input type="password" id="current-password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <input type="password" id="new-password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm New Password</label>
+                            <input type="password" id="confirm-password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Change Password</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-
+</div>
     <!-- Hero Section -->
 <section class="hero" id="home">
     <div class="container">
@@ -538,7 +554,7 @@
             <div class="tab-content" id="second-trimester-content">
                 <div class="resource-grid">
                     <div class="resource-card">
-                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/4001292/pexels-photo-4001292.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/7108416/pexels-photo-7108416.jpeg');">
                             <div class="resource-overlay"></div>
                         </div>
                         <div class="resource-content">
@@ -548,7 +564,7 @@
                         </div>
                     </div>
                     <div class="resource-card">
-                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/5717636/pexels-photo-5717636.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/7011403/pexels-photo-7011403.jpeg');">
                             <div class="resource-overlay"></div>
                         </div>
                         <div class="resource-content">
@@ -558,7 +574,7 @@
                         </div>
                     </div>
                     <div class="resource-card">
-                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/6207857/pexels-photo-6207857.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/28096438/pexels-photo-28096438.jpeg');">
                             <div class="resource-overlay"></div>
                         </div>
                         <div class="resource-content">
@@ -573,7 +589,7 @@
             <div class="tab-content" id="third-trimester-content">
                 <div class="resource-grid">
                     <div class="resource-card">
-                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/4473878/pexels-photo-4473878.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/19963973/pexels-photo-19963973.png');">
                             <div class="resource-overlay"></div>
                         </div>
                         <div class="resource-content">
@@ -583,7 +599,7 @@
                         </div>
                     </div>
                     <div class="resource-card">
-                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/5207004/pexels-photo-5207004.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/20082011/pexels-photo-20082011.jpeg');">
                             <div class="resource-overlay"></div>
                         </div>
                         <div class="resource-content">
@@ -593,7 +609,7 @@
                         </div>
                     </div>
                     <div class="resource-card">
-                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/6682980/pexels-photo-6682980.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/7362934/pexels-photo-7362934.jpeg');">
                             <div class="resource-overlay"></div>
                         </div>
                         <div class="resource-content">
@@ -608,7 +624,7 @@
             <div class="tab-content" id="postpartum-content">
                 <div class="resource-grid">
                     <div class="resource-card">
-                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/7725186/pexels-photo-7725186.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/19357673/pexels-photo-19357673.jpeg');">
                             <div class="resource-overlay"></div>
                         </div>
                         <div class="resource-content">
@@ -618,7 +634,7 @@
                         </div>
                     </div>
                     <div class="resource-card">
-                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/7725172/pexels-photo-7725172.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/6849529/pexels-photo-6849529.jpeg');">
                             <div class="resource-overlay"></div>
                         </div>
                         <div class="resource-content">
@@ -628,7 +644,7 @@
                         </div>
                     </div>
                     <div class="resource-card">
-                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/7725156/pexels-photo-7725156.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                        <div class="resource-img" style="background-image: url('https://images.pexels.com/photos/6849558/pexels-photo-6849558.jpeg');">
                             <div class="resource-overlay"></div>
                         </div>
                         <div class="resource-content">
