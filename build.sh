@@ -2,32 +2,42 @@
 # Exit on error
 set -o errexit
 
-# Print environment information (for debugging)
+# Print environment information
 echo "Python version: $(python --version)"
 echo "Current directory: $(pwd)"
 echo "Directory contents:"
 ls -la
 
-# Install dependencies
-pip install --upgrade pip
-echo "Installing dependencies from requirements.txt..."
-pip install -r requirements.txt
+# Upgrade pip and setuptools
+pip install --upgrade pip setuptools wheel
 
-# Create necessary directories if they don't exist
+# Try installing requirements with different approaches
+echo "Installing dependencies from requirements.txt..."
+
+# First try normal installation
+if pip install -r requirements.txt; then
+    echo "Requirements installed successfully"
+else
+    echo "Standard installation failed, trying with --no-cache-dir"
+    pip install --no-cache-dir -r requirements.txt || {
+        echo "Installation failed, trying individual packages"
+        # If that fails, try installing packages one by one
+        while read -r package; do
+            if [ -n "$package" ]; then
+                echo "Installing $package..."
+                pip install --no-cache-dir "$package" || echo "Failed to install $package"
+            fi
+        done < requirements.txt
+    }
+fi
+
+# Create necessary directories
 mkdir -p static
 mkdir -p templates
 
 # Collect static files
 echo "Collecting static files..."
 python manage.py collectstatic --no-input --clear
-
-# Check if templates directory exists
-echo "Templates directory contents:"
-ls -la templates/ || echo "No templates directory found"
-
-# Check if static files were collected
-echo "Static files collected:"
-ls -la staticfiles/ || echo "No staticfiles directory found"
 
 # Apply database migrations
 echo "Applying database migrations..."
