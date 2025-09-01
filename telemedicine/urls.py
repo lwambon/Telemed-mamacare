@@ -7,6 +7,6 @@ def redirect_to_frontend(request):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('mamacare.urls')),
+    path('api/', include('app.urls')),
     path('', redirect_to_frontend),
 ]
