@@ -10,7 +10,7 @@ django.setup()
 
 # Test imports
 try:
-    from mamacare import models, views, serializers
+    from app import models, views, serializers
     print("✓ All imports successful!")
     print("✓ Models module found")
     print("✓ Views module found")
