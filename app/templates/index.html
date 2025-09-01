@@ -16,6 +16,1851 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <style>
+      :root {
+  --primary: #8e7ce4;
+  --secondary: #f28dbc;
+  --accent: #6cd4ff;
+  --light: #f9f5ff;
+  --dark: #3d3a70;
+  --success: #5cb860;
+  --warning: #ffa726;
+  --danger: #ef5350;
+  --text-dark: #2d2b55;
+  --text-light: #666;
+  --shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #fafafa;
+  color: var(--text-dark);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header Styles */
+header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  text-decoration: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.logo:hover {
+  transform: translateY(-2px);
+}
+
+.logo img {
+  width: 60px;
+  height: 60px;
+  margin-right: 8px;
+  border-radius: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  transition: all 0.3s ease;
+}
+
+.logo:hover img {
+  transform: scale(1.05);
+}
+
+.logo span {
+  background: linear-gradient(45deg, #ffffff, #e6f7ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 8px;
+}
+
+nav ul li {
+  position: relative;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 12px 18px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+nav ul li a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+nav ul li a:hover::before {
+  left: 100%;
+}
+
+nav ul li a:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+nav ul li a:active {
+  transform: translateY(0);
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #ffffff, #f0f9ff);
+  color: var(--primary);
+  box-shadow: 0 4px 15px rgba(142, 124, 228, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #ffffff, #e6f7ff);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(142, 124, 228, 0.5);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(142, 124, 228, 0.4);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 12px 28px;
+}
+
+.btn-secondary:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(142, 124, 228, 0.3);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+  border: 2px solid var(--danger);
+}
+
+.btn-danger:hover {
+  background: #d32f2f;
+  border-color: #d32f2f;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(239, 83, 80, 0.3);
+}
+
+/* Mobile menu button (hidden by default) */
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.mobile-menu-btn span {
+  width: 25px;
+  height: 3px;
+  background: white;
+  margin: 2px 0;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  animation: modalFadeIn 0.3s;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.close:hover,
+.close:focus {
+  color: var(--primary);
+  transform: rotate(90deg);
+}
+
+.auth-tabs {
+  display: flex;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #eee;
+}
+
+.auth-tab-btn {
+  padding: 12px 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #777;
+  transition: var(--transition);
+}
+
+.auth-tab-btn.active {
+  color: var(--primary);
+  border-bottom: 3px solid var(--primary);
+}
+
+.auth-form {
+  display: none;
+}
+
+.auth-form.active {
+  display: block;
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Profile Modal Styles */
+#profile-modal .modal-content {
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.profile-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  color: white;
+  font-size: 3rem;
+  box-shadow: var(--shadow);
+}
+
+.profile-details h3 {
+  margin-bottom: 8px;
+  color: var(--text-dark);
+  font-size: 1.5rem;
+}
+
+.profile-details p {
+  color: var(--text-light);
+  margin-bottom: 5px;
+}
+
+/* Appointments List */
+.appointments-list {
+  margin: 20px 0;
+}
+
+.appointment-item {
+  background: var(--light);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-left: 4px solid var(--primary);
+}
+
+.appointment-item.upcoming {
+  border-left-color: var(--success);
+}
+
+.appointment-item.past {
+  border-left-color: var(--text-light);
+  opacity: 0.7;
+}
+
+.apt-info h4 {
+  margin-bottom: 8px;
+  color: var(--dark);
+}
+
+.apt-info p {
+  margin-bottom: 5px;
+  color: var(--text-light);
+}
+
+.apt-status {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.appointment-item.upcoming .apt-status {
+  background: rgba(76, 175, 80, 0.2);
+  color: var(--success);
+}
+
+.appointment-item.past .apt-status {
+  background: rgba(117, 117, 117, 0.2);
+  color: var(--text-light);
+}
+
+.no-appointments,
+.no-mood-data {
+  text-align: center;
+  padding: 30px;
+  color: var(--text-light);
+  font-style: italic;
+}
+
+/* Mood Analysis */
+.mood-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin: 20px 0;
+  align-items: center;
+}
+
+.mood-stats {
+  flex: 1;
+  min-width: 200px;
+}
+
+.mood-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background: #f8f9fa;
+}
+
+.mood-stat.positive {
+  border-left: 4px solid var(--success);
+}
+
+.mood-stat.neutral {
+  border-left: 4px solid var(--warning);
+}
+
+.mood-stat.negative {
+  border-left: 4px solid var(--danger);
+}
+
+.mood-label {
+  font-weight: 600;
+}
+
+.mood-value {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.mood-stat.positive .mood-value {
+  color: var(--success);
+}
+
+.mood-stat.neutral .mood-value {
+  color: var(--warning);
+}
+
+.mood-stat.negative .mood-value {
+  color: var(--danger);
+}
+
+.mood-chart-container {
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.mood-trends {
+  background: var(--light);
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.mood-trends h4 {
+  margin-bottom: 10px;
+  color: var(--dark);
+}
+
+/* Profile Sections */
+.profile-section {
+  margin: 30px 0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.profile-section:last-child {
+  border-bottom: none;
+}
+
+.profile-section h3 {
+  margin-bottom: 15px;
+  color: var(--dark);
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.profile-section h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  border-radius: 2px;
+}
+
+/* Hero Section */
+.hero {
+  padding: 120px 0;
+  background: linear-gradient(135deg, #f8f2ff 0%, #e6f0ff 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(142, 124, 228, 0.1) 0%,
+    rgba(242, 141, 188, 0.1) 100%
+  );
+  z-index: 1;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: -150px;
+  left: -150px;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(108, 212, 255, 0.1) 0%,
+    rgba(142, 124, 228, 0.1) 100%
+  );
+  z-index: 1;
+}
+
+.hero .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-content {
+  flex: 1;
+  max-width: 580px;
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 30px;
+  color: var(--dark);
+  line-height: 1.5;
+  font-weight: 500;
+  background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 5px 15px rgba(106, 89, 209, 0.2);
+  top: 0;
+  left: 0;
+  position: relative;
+  z-index: 2;
+  animation: textGlow 3s infinite alternate;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  margin-bottom: 80px;
+  color: #555;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  animation: fadeInRight 1s ease-out;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.hero-image::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 100%;
+  height: 100%;
+  border: 0 solid var(--primary);
+  border-radius: 25px;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 500px;
+  height: 500px;
+  border-radius: 25px;
+  box-shadow: 0 30px 60px rgba(106, 89, 209, 0.3);
+  transform: perspective(1000px) rotateY(-8deg) rotateX(5deg);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 10px solid white;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+}
+
+.hero-image img:hover {
+  transform: perspective(1000px) rotateY(0) rotateX(0);
+  box-shadow: 0 40px 80px rgba(106, 89, 209, 0.4);
+}
+
+/* Features Section */
+.features {
+  padding: 100px 0;
+  background-color: white;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-title h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: var(--dark);
+  position: relative;
+  display: inline-block;
+}
+
+.section-title h2::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  border-radius: 2px;
+}
+
+.section-title p {
+  color: var(--text-light);
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.feature-card {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  text-align: center;
+  border: 1px solid #f0f0f0;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 0;
+  background: linear-gradient(to bottom, var(--primary), var(--secondary));
+  transition: var(--transition);
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card:hover::before {
+  height: 100%;
+}
+
+.feature-icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 25px;
+  overflow: hidden;
+  background: var(--light);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+}
+
+.feature-card:hover .feature-icon {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.feature-card h3 {
+  margin-bottom: 15px;
+  color: var(--dark);
+  font-size: 1.4rem;
+}
+
+.feature-card p {
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* Appointment Section */
+.appointment {
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  padding: 100px 0;
+  color: white;
+}
+
+.appointment-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.appointment-text {
+  flex: 1;
+  min-width: 300px;
+}
+
+.appointment-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.appointment-text p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.appointment-form {
+  flex: 1;
+  min-width: 300px;
+  background: white;
+  padding: 35px;
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.appointment-form h3 {
+  color: var(--dark);
+  margin-bottom: 25px;
+  text-align: center;
+  font-size: 1.6rem;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.appointment-form h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  border-radius: 2px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--dark);
+  font-weight: 500;
+}
+
+.form-control {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(142, 124, 228, 0.2);
+}
+
+/* Doctor Availability */
+.doctor-availability {
+  margin-top: 40px;
+}
+
+.doctor-availability h3 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.availability-list {
+  margin-top: 15px;
+}
+
+.availability-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  margin-bottom: 15px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: var(--transition);
+}
+
+.availability-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(5px);
+}
+
+.doctor-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 60%;
+}
+
+.doctor-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.doctor-details h4 {
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+}
+
+.doctor-details p {
+  opacity: 0.8;
+  margin-bottom: 5px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.rating i {
+  color: gold;
+  margin-right: 3px;
+  font-size: 0.6rem;
+}
+
+.rating span {
+  margin-left: 8px;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.availability-status {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  max-width: 120px;
+  justify-content: center;
+  text-align: center;
+}
+
+.availability-status i {
+  margin-right: 5px;
+  font-size: 1rem;
+  color: green;
+}
+
+.available {
+  color: #5fc75f;
+}
+
+.unavailable {
+  color: #e94c4c;
+}
+
+/* Due Date Calculator */
+.due-date-calculator {
+  padding: 100px 0;
+  background: var(--light);
+}
+
+.calculator-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  background: white;
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: var(--shadow);
+}
+
+.calculator-form {
+  flex: 1;
+  min-width: 300px;
+}
+
+.calculator-result {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.result-box {
+  background: var(--light);
+  padding: 25px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  text-align: center;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.result-box h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: var(--primary);
+}
+
+.result-box p {
+  color: var(--text-light);
+}
+
+.pregnancy-progress {
+  margin-top: 20px;
+}
+
+.pregnancy-progress h4 {
+  margin-bottom: 15px;
+  color: var(--dark);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  background: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10px 0;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  border-radius: 10px;
+  width: 0%;
+  transition: width 1s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+#pregnancy-weeks {
+  text-align: center;
+  font-weight: 600;
+  color: var(--primary);
+  margin-top: 10px;
+}
+
+/* Mood Tracker */
+.mood-tracker {
+  padding: 100px 0;
+  background: white;
+}
+
+.mood-container {
+  background: white;
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: var(--shadow);
+}
+
+.mood-container > p {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  color: var(--text-light);
+  text-align: center;
+}
+
+.mood-form textarea {
+  width: 100%;
+  min-height: 150px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  resize: vertical;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.mood-form textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(142, 124, 228, 0.2);
+}
+
+.mood-result {
+  margin-top: 25px;
+  padding: 25px;
+  border-radius: 10px;
+  display: none;
+  animation: fadeIn 0.5s;
+}
+
+.mood-result h4 {
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+#mood-text-result {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+#sentiment-score {
+  font-style: italic;
+  margin-bottom: 15px;
+}
+
+#mood-suggestions h5 {
+  margin-bottom: 10px;
+  color: var(--dark);
+}
+
+#mood-suggestions ul {
+  padding-left: 20px;
+}
+
+#mood-suggestions li {
+  margin-bottom: 8px;
+  color: var(--text-light);
+}
+
+.mood-history {
+  margin-top: 40px;
+}
+
+.mood-history h3 {
+  margin-bottom: 20px;
+  color: var(--dark);
+  text-align: center;
+}
+
+.history-chart {
+  margin-top: 20px;
+  height: 200px;
+}
+
+/* Community Section */
+.community {
+  padding: 100px 0;
+  background: var(--light);
+}
+
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-bottom: 50px;
+}
+
+.testimonial-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-content {
+  padding: 25px;
+}
+
+.testimonial-text {
+  margin-bottom: 20px;
+  font-style: italic;
+  color: var(--text-dark);
+  line-height: 1.6;
+  position: relative;
+}
+
+.testimonial-text::before {
+  content: '"';
+  font-size: 3rem;
+  color: var(--primary);
+  opacity: 0.2;
+  position: absolute;
+  top: -15px;
+  left: -10px;
+  font-family: Georgia, serif;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+}
+
+.author-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 15px;
+  border: 3px solid var(--light);
+}
+
+.author-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.author-details h4 {
+  margin-bottom: 5px;
+  color: var(--dark);
+}
+
+.author-details p {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.community-forum {
+  background: white;
+  border-radius: 15px;
+  padding: 35px;
+  box-shadow: var(--shadow);
+}
+
+.community-forum h3 {
+  margin-bottom: 10px;
+  color: var(--dark);
+}
+
+.community-forum > p {
+  color: var(--text-light);
+  margin-bottom: 25px;
+}
+
+.forum-preview {
+  margin: 25px 0;
+}
+
+.forum-topic {
+  padding: 18px;
+  border-bottom: 1px solid #eee;
+  transition: var(--transition);
+}
+
+.forum-topic:hover {
+  background: var(--light);
+  border-radius: 8px;
+}
+
+.forum-topic:last-child {
+  border-bottom: none;
+}
+
+.forum-topic h4 {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  color: var(--dark);
+}
+
+.forum-topic h4 i {
+  margin-right: 12px;
+  color: var(--primary);
+}
+
+.forum-topic p {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+/* Feedback form styles */
+.feedback-form {
+  background: var(--light);
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.feedback-form h4 {
+  margin-bottom: 15px;
+  color: var(--dark);
+}
+
+.forum-preview h4 {
+  margin: 25px 0 15px;
+  color: var(--dark);
+}
+
+/* Resources Section */
+.resources {
+  padding: 100px 0;
+  background: white;
+}
+
+.resource-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  background: var(--light);
+  border-radius: 50px;
+  padding: 5px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tab-btn {
+  padding: 12px 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-light);
+  border-radius: 50px;
+  transition: var(--transition);
+}
+
+.tab-btn.active {
+  background: white;
+  color: var(--primary);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tab-content {
+  display: none;
+  animation: fadeIn 0.5s;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.resource-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  position: relative;
+}
+
+.resource-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.resource-img {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.resource-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7));
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  color: white;
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.resource-card:hover .resource-overlay {
+  opacity: 1;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.8));
+}
+
+.resource-content {
+  padding: 25px;
+}
+
+.resource-content h3 {
+  margin-bottom: 12px;
+  color: var(--dark);
+  font-size: 1.3rem;
+}
+
+.resource-content p {
+  color: var(--text-light);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+/* Footer */
+footer {
+  background: var(--dark);
+  color: white;
+  padding: 70px 0 20px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-column h3 {
+  margin-bottom: 25px;
+  font-size: 1.3rem;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-column h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+.footer-column p {
+  color: #ccc;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.footer-column ul {
+  list-style: none;
+}
+
+.footer-column ul li {
+  margin-bottom: 12px;
+}
+
+.footer-column ul li a {
+  color: #ccc;
+  text-decoration: none;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-column ul li a:hover {
+  color: white;
+  transform: translateX(5px);
+}
+
+.footer-column ul li i {
+  width: 20px;
+}
+
+.copyright {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #999;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .header-content {
+    padding: 0 15px;
+  }
+
+  nav ul {
+    gap: 5px;
+  }
+
+  nav ul li a {
+    padding: 10px 15px;
+    font-size: 0.95rem;
+  }
+
+  .logo {
+    font-size: 1.6rem;
+  }
+
+  .logo img {
+    width: 45px;
+    height: 45px;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+  }
+
+  .hero .container {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .hero-content {
+    order: 2;
+    margin-top: 0;
+  }
+
+  .hero-image {
+    order: 1;
+    justify-content: center;
+  }
+
+  .hero-image img {
+    max-width: 400px;
+    transform: none;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .appointment-container {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  nav ul {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+    gap: 0;
+  }
+
+  nav ul.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  nav ul li {
+    width: 100%;
+  }
+
+  nav ul li a {
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+
+  .logo span {
+    font-size: 1.5rem;
+  }
+
+  .header-content {
+    padding: 0 10px;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-avatar {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+
+  .mood-summary {
+    flex-direction: column;
+  }
+
+  .mood-stats {
+    width: 100%;
+  }
+
+  .mood-chart-container {
+    width: 100%;
+    max-width: none;
+  }
+
+  .header-content {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  nav ul {
+    margin: 20px 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  nav ul li {
+    margin: 0;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+  }
+
+  .section-title h2 {
+    font-size: 2rem;
+  }
+
+  .calculator-container {
+    flex-direction: column;
+  }
+
+  .resource-tabs {
+    flex-direction: column;
+    border-radius: 15px;
+  }
+
+  .tab-btn {
+    border-radius: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .tab-btn:first-child {
+    border-radius: 15px 15px 0 0;
+  }
+
+  .tab-btn:last-child {
+    border-radius: 0 0 15px 15px;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .footer-column h3::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 480px) {
+  .logo img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logo span {
+    font-size: 1.4rem;
+  }
+
+  .btn {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+  }
+
+  header {
+    padding: 10px 0;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-image img {
+    max-width: 320px;
+    border-width: 6px;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .testimonials {
+    grid-template-columns: 1fr;
+  }
+
+  .resource-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content {
+    padding: 20px;
+  }
+
+  .appointment-form {
+    padding: 25px;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-image img {
+    max-width: 280px;
+  }
+}
+
+/* Animation for mobile menu button when active */
+.mobile-menu-btn.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Profile button styles */
+#profile-btn {
+  display: none;
+}
+
+/* Loading spinner for mood analysis */
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin: 10px auto;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left: 4px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: none;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+    </style>
     <header>
       <div class="container header-content">
         <div class="logo">
@@ -1156,6 +3001,1090 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // Global variables
+let currentUser = null;
+let users = JSON.parse(localStorage.getItem("users")) || [];
+let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+let moodHistory = JSON.parse(localStorage.getItem("moodHistory")) || [];
+let feedbacks = JSON.parse(localStorage.getItem("feedbacks")) || [];
+
+// Utility functions
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+function formatDateShort(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
+}
+
+function getTimeAgo(date) {
+  const now = new Date();
+  const diffInSeconds = Math.floor((now - date) / 1000);
+
+  if (diffInSeconds < 60) return "just now";
+
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
+  if (diffInMinutes < 60)
+    return `${diffInMinutes} minute${diffInMinutes !== 1 ? "s" : ""} ago`;
+
+  const diffInHours = Math.floor(diffInMinutes / 60);
+  if (diffInHours < 24)
+    return `${diffInHours} hour${diffInHours !== 1 ? "s" : ""} ago`;
+
+  const diffInDays = Math.floor(diffInHours / 24);
+  if (diffInDays < 7)
+    return `${diffInDays} day${diffInDays !== 1 ? "s" : ""} ago`;
+
+  const diffInWeeks = Math.floor(diffInDays / 7);
+  return `${diffInWeeks} week${diffInWeeks !== 1 ? "s" : ""} ago`;
+}
+
+// Core application functions
+function initApp() {
+  setupEventListeners();
+  checkLoginStatus();
+  initMoodChart();
+  updateForumTopics();
+}
+
+function setupEventListeners() {
+  const loginBtn = document.getElementById("login-btn");
+  const profileBtn = document.getElementById("profile-btn");
+  const authModal = document.getElementById("auth-modal");
+  const closeModal = document.querySelectorAll(".close");
+
+  loginBtn.addEventListener("click", function () {
+    if (currentUser) {
+      openUserProfile();
+    } else {
+      authModal.style.display = "block";
+    }
+  });
+
+  profileBtn.addEventListener("click", function () {
+    openUserProfile();
+  });
+
+  closeModal.forEach(function (closeBtn) {
+    closeBtn.addEventListener("click", function () {
+      this.closest(".modal").style.display = "none";
+    });
+  });
+
+  const authTabBtns = document.querySelectorAll(".auth-tab-btn");
+  const authForms = document.querySelectorAll(".auth-form");
+
+  authTabBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const tab = this.getAttribute("data-tab");
+
+      authTabBtns.forEach(function (b) {
+        b.classList.remove("active");
+      });
+      this.classList.add("active");
+
+      authForms.forEach(function (form) {
+        form.classList.remove("active");
+      });
+      document.getElementById(`${tab}-form`).classList.add("active");
+    });
+  });
+
+  const loginForm = document.getElementById("login-form");
+  const signupForm = document.getElementById("signup-form");
+
+  loginForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    handleLogin();
+  });
+
+  signupForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    handleSignup();
+  });
+
+  const profileForm = document.getElementById("profile-form");
+  if (profileForm) {
+    profileForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      updateProfile();
+    });
+  }
+
+  const passwordForm = document.getElementById("password-form");
+  if (passwordForm) {
+    passwordForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      changePassword();
+    });
+  }
+
+  const appointmentForm = document.getElementById("appointment-form");
+  if (appointmentForm) {
+    appointmentForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      scheduleAppointment();
+    });
+  }
+
+  const tabBtns = document.querySelectorAll(".tab-btn");
+
+  tabBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const tab = this.getAttribute("data-tab");
+
+      tabBtns.forEach(function (b) {
+        b.classList.remove("active");
+      });
+      this.classList.add("active");
+
+      document.querySelectorAll(".tab-content").forEach(function (content) {
+        content.classList.remove("active");
+      });
+      document.getElementById(`${tab}-content`).classList.add("active");
+    });
+  });
+
+  const analyzeBtn = document.getElementById("analyze-btn");
+  if (analyzeBtn) {
+    analyzeBtn.addEventListener("click", function () {
+      analyzeMood();
+    });
+  }
+
+  const calculateBtn = document.getElementById("calculate-due-date");
+  if (calculateBtn) {
+    calculateBtn.addEventListener("click", function () {
+      calculateDueDate();
+    });
+  }
+
+  const heroAppointmentBtn = document.getElementById("hero-appointment-btn");
+  if (heroAppointmentBtn) {
+    heroAppointmentBtn.addEventListener("click", function () {
+      document
+        .getElementById("appointment")
+        .scrollIntoView({ behavior: "smooth" });
+    });
+  }
+
+  const logoutBtn = document.getElementById("logout-btn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", handleLogout);
+  }
+
+  const feedbackForm = document.getElementById("feedback-form");
+  if (feedbackForm) {
+    feedbackForm.addEventListener("submit", handleFeedbackSubmission);
+  }
+
+  window.addEventListener("click", function (e) {
+    const modals = document.querySelectorAll(".modal");
+    modals.forEach(function (modal) {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  });
+}
+
+function checkLoginStatus() {
+  const userData = localStorage.getItem("currentUser");
+  const loginBtn = document.getElementById("login-btn");
+  const profileBtn = document.getElementById("profile-btn");
+  const logoutBtn = document.getElementById("logout-btn");
+
+  if (userData) {
+    currentUser = JSON.parse(userData);
+    loginBtn.textContent = "My Profile";
+    profileBtn.style.display = "inline-flex";
+    logoutBtn.style.display = "inline-flex";
+  } else {
+    loginBtn.textContent = "Login / Sign Up";
+    profileBtn.style.display = "none";
+    logoutBtn.style.display = "none";
+  }
+}
+
+// Authentication functions
+function handleLogin() {
+  const email = document.getElementById("login-email").value;
+  const password = document.getElementById("login-password").value;
+
+  const user = users.find((u) => u.email === email && u.password === password);
+
+  if (user) {
+    currentUser = user;
+    localStorage.setItem("currentUser", JSON.stringify(user));
+
+    document.getElementById("login-btn").textContent = "My Profile";
+    document.getElementById("profile-btn").style.display = "inline-flex";
+    document.getElementById("logout-btn").style.display = "inline-flex";
+    document.getElementById("auth-modal").style.display = "none";
+
+    alert(`Login successful! Welcome back, ${user.name}!`);
+  } else {
+    alert("Invalid email or password. Please try again.");
+  }
+}
+
+function handleSignup() {
+  const name = document.getElementById("signup-name").value;
+  const email = document.getElementById("signup-email").value;
+  const password = document.getElementById("signup-password").value;
+  const dueDate = document.getElementById("signup-due-date").value;
+
+  if (users.some((u) => u.email === email)) {
+    alert("User with this email already exists. Please login instead.");
+    return;
+  }
+
+  const newUser = {
+    id: Date.now(),
+    name,
+    email,
+    password,
+    dueDate,
+    bloodType: "",
+    emergencyContact: "",
+    createdAt: new Date().toISOString(),
+  };
+
+  users.push(newUser);
+  currentUser = newUser;
+
+  localStorage.setItem("users", JSON.stringify(users));
+  localStorage.setItem("currentUser", JSON.stringify(newUser));
+
+  document.getElementById("login-btn").textContent = "My Profile";
+  document.getElementById("profile-btn").style.display = "inline-flex";
+  document.getElementById("logout-btn").style.display = "inline-flex";
+  document.getElementById("auth-modal").style.display = "none";
+
+  alert("Account created successfully! Welcome to MamaCare!");
+}
+
+function handleLogout() {
+  localStorage.removeItem("currentUser");
+  currentUser = null;
+
+  const loginBtn = document.getElementById("login-btn");
+  loginBtn.textContent = "Login / Sign Up";
+  document.getElementById("profile-btn").style.display = "none";
+  document.getElementById("logout-btn").style.display = "none";
+
+  const profileModal = document.getElementById("profile-modal");
+  profileModal.style.display = "none";
+
+  alert("You have been logged out successfully.");
+}
+
+// Profile functions
+function openUserProfile() {
+  if (!currentUser) {
+    alert("Please login to view your profile");
+    document.getElementById("auth-modal").style.display = "block";
+    return;
+  }
+
+  const profileModal = document.getElementById("profile-modal");
+  const userAppointments = appointments.filter(
+    (apt) => apt.userId === currentUser.id,
+  );
+  const userMoodHistory = moodHistory.filter(
+    (mood) => mood.userId === currentUser.id,
+  );
+  const recentMood = userMoodHistory.slice(-30);
+
+  document.getElementById("profile-name").textContent = currentUser.name;
+  document.getElementById("profile-email").textContent = currentUser.email;
+  document.getElementById("profile-due-date").textContent = currentUser.dueDate
+    ? `Due Date: ${formatDate(currentUser.dueDate)}`
+    : "Due Date: Not specified";
+  document.getElementById("profile-blood-type").textContent =
+    currentUser.bloodType
+      ? `Blood Type: ${currentUser.bloodType}`
+      : "Blood Type: Not specified";
+
+  if (currentUser.dueDate) {
+    document.getElementById("profile-due-date-input").value =
+      currentUser.dueDate;
+  }
+
+  if (currentUser.bloodType) {
+    document.getElementById("profile-blood-type-select").value =
+      currentUser.bloodType;
+  }
+
+  if (currentUser.emergencyContact) {
+    document.getElementById("profile-emergency-contact").value =
+      currentUser.emergencyContact;
+  }
+
+  displayUserAppointments(userAppointments);
+  displayMoodAnalysis(recentMood);
+
+  profileModal.style.display = "block";
+}
+
+function displayUserAppointments(userAppointments) {
+  const appointmentsContainer = document.getElementById("user-appointments");
+
+  if (userAppointments.length === 0) {
+    appointmentsContainer.innerHTML =
+      '<p class="no-appointments">You have no upcoming appointments.</p>';
+    return;
+  }
+
+  let appointmentsHTML =
+    '<h3>Your Appointments</h3><div class="appointments-list">';
+
+  userAppointments.forEach((apt) => {
+    const aptDate = new Date(apt.date);
+    const now = new Date();
+    const isUpcoming = aptDate > now;
+
+    appointmentsHTML += `
+                    <div class="appointment-item ${isUpcoming ? "upcoming" : "past"}">
+                        <div class="apt-info">
+                            <h4>Appointment with ${apt.doctor}</h4>
+                            <p><strong>Date:</strong> ${formatDate(apt.date)} at ${apt.time}</p>
+                            <p><strong>Reason:</strong> ${apt.reason}</p>
+                            <p class="apt-status">${isUpcoming ? "Upcoming" : "Completed"}</p>
+                        </div>
+                    </div>
+                `;
+  });
+
+  appointmentsHTML += "</div>";
+  appointmentsContainer.innerHTML = appointmentsHTML;
+}
+
+function updateProfile() {
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+
+  if (user) {
+    const dueDate = document.getElementById("profile-due-date-input").value;
+    const bloodType = document.getElementById(
+      "profile-blood-type-select",
+    ).value;
+    const emergencyContact = document.getElementById(
+      "profile-emergency-contact",
+    ).value;
+
+    user.dueDate = dueDate;
+    user.bloodType = bloodType;
+    user.emergencyContact = emergencyContact;
+
+    const userIndex = users.findIndex((u) => u.id === user.id);
+    if (userIndex !== -1) {
+      users[userIndex] = user;
+    }
+
+    localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem("currentUser", JSON.stringify(user));
+
+    document.getElementById("profile-due-date").textContent = dueDate
+      ? `Due Date: ${formatDate(dueDate)}`
+      : "Due Date: Not specified";
+
+    document.getElementById("profile-blood-type").textContent = bloodType
+      ? `Blood Type: ${bloodType}`
+      : "Blood Type: Not specified";
+
+    alert("Profile updated successfully!");
+  }
+}
+
+function changePassword() {
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+
+  if (user) {
+    const currentPassword = document.getElementById("current-password").value;
+    const newPassword = document.getElementById("new-password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+
+    if (currentPassword !== user.password) {
+      alert("Current password is incorrect.");
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      alert("New passwords do not match.");
+      return;
+    }
+
+    user.password = newPassword;
+
+    const userIndex = users.findIndex((u) => u.id === user.id);
+    if (userIndex !== -1) {
+      users[userIndex] = user;
+    }
+
+    localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem("currentUser", JSON.stringify(user));
+
+    document.getElementById("password-form").reset();
+
+    alert("Password changed successfully!");
+  }
+}
+
+// Appointment functions
+function scheduleAppointment() {
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+
+  if (!user) {
+    alert("Please login to schedule an appointment.");
+    document.getElementById("auth-modal").style.display = "block";
+    return;
+  }
+
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const dueDate = document.getElementById("due-date").value;
+  const doctor = document.getElementById("doctor").value;
+  const date = document.getElementById("date").value;
+  const time = document.getElementById("time").value;
+  const reason = document.getElementById("reason").value;
+
+  if (!name || !email || !doctor || !date || !time) {
+    alert("Please fill out all required fields.");
+    return;
+  }
+
+  const appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+
+  const newAppointment = {
+    id: Date.now(),
+    userId: user.id,
+    patientName: name,
+    patientEmail: email,
+    dueDate,
+    doctor,
+    date,
+    time,
+    reason,
+    status: "scheduled",
+    createdAt: new Date().toISOString(),
+  };
+
+  appointments.push(newAppointment);
+
+  localStorage.setItem("appointments", JSON.stringify(appointments));
+
+  document.getElementById("appointment-form").reset();
+
+  alert(
+    "Appointment scheduled successfully! You will receive a confirmation email shortly.",
+  );
+}
+
+// Mood tracker functions
+function analyzeMood() {
+  const text = document.getElementById("mood-text").value;
+
+  if (!text) {
+    alert("Please enter some text to analyze");
+    return;
+  }
+
+  // Show loading spinner
+  document.getElementById("mood-spinner").style.display = "block";
+  document.getElementById("analyze-btn").disabled = true;
+
+  // Simulate API call with timeout
+  setTimeout(() => {
+    const sentimentData = analyzePregnancyMood(text);
+
+    const resultDiv = document.getElementById("mood-result");
+    resultDiv.style.display = "block";
+    resultDiv.className = "mood-result " + sentimentData.label.toLowerCase();
+
+    document.getElementById("mood-text-result").textContent =
+      sentimentData.text;
+    document.getElementById("sentiment-score").textContent =
+      `Confidence: ${(sentimentData.score * 100).toFixed(1)}%`;
+
+    showMoodSuggestions(sentimentData.label);
+    saveMoodHistory(sentimentData);
+    updateMoodChart();
+
+    // Hide loading spinner
+    document.getElementById("mood-spinner").style.display = "none";
+    document.getElementById("analyze-btn").disabled = false;
+  }, 2000);
+}
+
+function analyzePregnancyMood(text) {
+  // Pregnancy-specific keywords for more accurate sentiment analysis
+  const positiveWords = [
+    "excited",
+    "happy",
+    "joy",
+    "love",
+    "grateful",
+    "thankful",
+    "blessed",
+    "thrilled",
+    "wonderful",
+    "amazing",
+    "good",
+    "great",
+    "perfect",
+    "bliss",
+    "content",
+    "peaceful",
+    "calm",
+    "relaxed",
+    "optimistic",
+    "hopeful",
+    "looking forward",
+    "can't wait",
+    "eager",
+    "enthusiastic",
+    "energetic",
+    "healthy",
+    "well",
+    "fine",
+    "okay",
+    "alright",
+    "better",
+    "improving",
+    "support",
+    "help",
+    "care",
+    "understanding",
+    "patient",
+    "kind",
+    "nice",
+  ];
+
+  const negativeWords = [
+    "sad",
+    "depressed",
+    "anxious",
+    "worried",
+    "stressed",
+    "overwhelmed",
+    "tired",
+    "exhausted",
+    "fatigued",
+    "weary",
+    "drained",
+    "burned out",
+    "frustrated",
+    "angry",
+    "irritated",
+    "annoyed",
+    "upset",
+    "mad",
+    "scared",
+    "afraid",
+    "fearful",
+    "terrified",
+    "panicked",
+    "nervous",
+    "pain",
+    "hurt",
+    "ache",
+    "sore",
+    "uncomfortable",
+    "discomfort",
+    "nauseous",
+    "sick",
+    "ill",
+    "unwell",
+    "queasy",
+    "vomit",
+    "throw up",
+    "lonely",
+    "alone",
+    "isolated",
+    "abandoned",
+    "neglected",
+    "ignored",
+    "confused",
+    "unsure",
+    "uncertain",
+    "doubtful",
+    "hesitant",
+    "ambivalent",
+  ];
+
+  const textLower = text.toLowerCase();
+  let positiveCount = 0;
+  let negativeCount = 0;
+
+  positiveWords.forEach((word) => {
+    const regex = new RegExp("\\b" + word + "\\b", "g");
+    const matches = textLower.match(regex);
+    if (matches) positiveCount += matches.length;
+  });
+
+  negativeWords.forEach((word) => {
+    const regex = new RegExp("\\b" + word + "\\b", "g");
+    const matches = textLower.match(regex);
+    if (matches) negativeCount += matches.length;
+  });
+
+  // Additional pregnancy-specific context analysis
+  const pregnancyContext = {
+    hasSymptoms:
+      /(morning sickness|nausea|vomiting|heartburn|back pain|swelling|fatigue|constipation)/i.test(
+        text,
+      ),
+    hasConcerns:
+      /(worry|concern|scared|anxious|nervous|what if|what happens if)/i.test(
+        text,
+      ),
+    hasPositive:
+      /(excit|happy|joy|love|grateful|thankful|blessed|thrill|wonderful|amazing)/i.test(
+        text,
+      ),
+    hasQuestions: /\?/.test(text),
+  };
+
+  // Calculate score with context weighting
+  let score = 0;
+  let label = "NEUTRAL";
+
+  if (positiveCount > negativeCount) {
+    score = 0.7 + (positiveCount - negativeCount) * 0.05;
+    score = Math.min(0.95, score);
+    label = "POSITIVE";
+
+    // Adjust based on pregnancy context
+    if (pregnancyContext.hasSymptoms) score -= 0.1;
+    if (pregnancyContext.hasConcerns) score -= 0.1;
+  } else if (negativeCount > positiveCount) {
+    score = 0.3 - (negativeCount - positiveCount) * 0.05;
+    score = Math.max(0.05, score);
+    label = "NEGATIVE";
+
+    // Adjust based on pregnancy context
+    if (pregnancyContext.hasPositive) score += 0.1;
+  } else {
+    score = 0.5;
+    label = "NEUTRAL";
+  }
+
+  // Generate appropriate response text
+  let responseText = "";
+
+  if (label === "POSITIVE") {
+    responseText =
+      "You seem to be in a positive mood today! It's wonderful that you're feeling good during your pregnancy.";
+    if (pregnancyContext.hasSymptoms) {
+      responseText +=
+        " Even with some pregnancy symptoms, you're maintaining a positive outlook.";
+    }
+  } else if (label === "NEGATIVE") {
+    responseText =
+      "It seems you might be feeling down today. Pregnancy can bring many physical and emotional changes.";
+    if (pregnancyContext.hasSymptoms) {
+      responseText +=
+        " Dealing with pregnancy symptoms can certainly affect your mood.";
+    }
+    responseText +=
+      " Remember that it's okay to not be okay, and support is available.";
+  } else {
+    responseText =
+      "Your mood appears neutral today. Pregnancy is a journey with ups and downs, and sometimes steady is just what we need.";
+  }
+
+  return {
+    label: label,
+    score: score,
+    text: responseText,
+  };
+}
+
+function showMoodSuggestions(sentiment) {
+  const suggestionsDiv = document.getElementById("mood-suggestions");
+
+  if (sentiment === "POSITIVE") {
+    suggestionsDiv.innerHTML = `
+                    <h5>Suggestions to maintain your positive mood:</h5>
+                    <ul>
+                        <li>Share your positive energy with other expecting mothers in our community</li>
+                        <li>Take a moment to journal about what's making you happy in your pregnancy</li>
+                        <li>Engage in light prenatal exercise like walking or yoga</li>
+                        <li>Practice gratitude by noting three things you appreciate about your pregnancy journey</li>
+                    </ul>
+                `;
+  } else if (sentiment === "NEGATIVE") {
+    suggestionsDiv.innerHTML = `
+                    <h5>Suggestions to improve your mood:</h5>
+                    <ul>
+                        <li>Practice deep breathing exercises to reduce stress</li>
+                        <li>Take a gentle walk in nature to clear your mind</li>
+                        <li>Listen to calming music or pregnancy meditation guides</li>
+                        <li>Reach out to your healthcare provider if these feelings persist or intensify</li>
+                        <li>Connect with other expecting mothers who may be experiencing similar feelings</li>
+                    </ul>
+                `;
+  } else {
+    suggestionsDiv.innerHTML = `
+                    <h5>Suggestions to enhance your day:</h5>
+                    <ul>
+                        <li>Try a new relaxing activity suitable for pregnancy</li>
+                        <li>Connect with friends or family for support</li>
+                        <li>Practice mindfulness meditation focused on your baby</li>
+                        <li>Read something uplifting about pregnancy and childbirth</li>
+                    </ul>
+                `;
+  }
+}
+
+function saveMoodHistory(sentimentData) {
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+
+  if (user) {
+    const moodHistory = JSON.parse(localStorage.getItem("moodHistory")) || [];
+
+    const newEntry = {
+      userId: user.id,
+      date: new Date().toISOString(),
+      sentiment: sentimentData.label,
+      score: sentimentData.score,
+      text:
+        document.getElementById("mood-text").value.substring(0, 100) + "...",
+    };
+
+    moodHistory.push(newEntry);
+    localStorage.setItem("moodHistory", JSON.stringify(moodHistory));
+  }
+}
+
+function initMoodChart() {
+  const ctx = document.getElementById("mood-chart");
+  if (!ctx) return;
+
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  if (!user) return;
+
+  const moodHistory = JSON.parse(localStorage.getItem("moodHistory")) || [];
+  const userMoodHistory = moodHistory.filter(
+    (entry) => entry.userId === user.id,
+  );
+
+  if (userMoodHistory.length === 0) {
+    ctx.getContext("2d").fillText("No mood data available yet", 150, 100);
+    return;
+  }
+
+  const recentHistory = userMoodHistory.slice(-7);
+
+  const dates = recentHistory.map((entry) => formatDateShort(entry.date));
+  const scores = recentHistory.map((entry) => entry.score * 100);
+  const sentiments = recentHistory.map((entry) => entry.sentiment);
+
+  const colors = sentiments.map((sentiment) => {
+    if (sentiment === "POSITIVE") return "rgba(76, 175, 80, 0.7)";
+    if (sentiment === "NEGATIVE") return "rgba(244, 67, 54, 0.7)";
+    return "rgba(255, 152, 0, 0.7)";
+  });
+
+  const chart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: dates,
+      datasets: [
+        {
+          label: "Mood Score (%)",
+          data: scores,
+          backgroundColor: colors,
+          borderColor: colors.map((color) => color.replace("0.7", "1")),
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 100,
+          ticks: {
+            callback: function (value) {
+              return value + "%";
+            },
+          },
+        },
+      },
+    },
+  });
+}
+
+function updateMoodChart() {
+  initMoodChart();
+}
+
+function displayMoodAnalysis(recentMood) {
+  const moodContainer = document.getElementById("user-mood-analysis");
+
+  if (recentMood.length === 0) {
+    moodContainer.innerHTML =
+      '<p class="no-mood-data">No mood data available for the past 30 days.</p>';
+    return;
+  }
+
+  const sentimentCount = {
+    POSITIVE: 0,
+    NEGATIVE: 0,
+    NEUTRAL: 0,
+  };
+
+  recentMood.forEach((entry) => {
+    if (sentimentCount[entry.sentiment] !== undefined) {
+      sentimentCount[entry.sentiment]++;
+    }
+  });
+
+  const total = recentMood.length;
+  const positivePct = Math.round((sentimentCount.POSITIVE / total) * 100);
+  const negativePct = Math.round((sentimentCount.NEGATIVE / total) * 100);
+  const neutralPct = Math.round((sentimentCount.NEUTRAL / total) * 100);
+
+  let moodHTML = `
+                <h3>Mood Analysis (Last 30 Days)</h3>
+                <div class="mood-summary">
+                    <div class="mood-stats">
+                        <div class="mood-stat positive">
+                            <span class="mood-label">Positive</span>
+                            <span class="mood-value">${positivePct}%</span>
+                        </div>
+                        <div class="mood-stat neutral">
+                            <span class="mood-label">Neutral</span>
+                            <span class="mood-value">${neutralPct}%</span>
+                        </div>
+                        <div class="mood-stat negative">
+                            <span class="mood-label">Negative</span>
+                            <span class="mood-value">${negativePct}%</span>
+                        </div>
+                    </div>
+                    <div class="mood-chart-container">
+                        <canvas id="mood-chart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+                <div class="mood-trends">
+                    <h4>Your Mood Trends</h4>
+                    <p>Based on your recent entries, you've been feeling mostly 
+                    ${getDominantMood(sentimentCount)} recently.</p>
+                </div>
+            `;
+
+  moodContainer.innerHTML = moodHTML;
+
+  renderMoodChart(sentimentCount);
+}
+
+function getDominantMood(sentimentCount) {
+  const max = Math.max(
+    sentimentCount.POSITIVE,
+    sentimentCount.NEGATIVE,
+    sentimentCount.NEUTRAL,
+  );
+
+  if (max === sentimentCount.POSITIVE) return "positive";
+  if (max === sentimentCount.NEGATIVE) return "a bit down";
+  return "balanced";
+}
+
+function renderMoodChart(sentimentCount) {
+  const ctx = document.getElementById("mood-chart").getContext("2d");
+
+  new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: ["Positive", "Neutral", "Negative"],
+      datasets: [
+        {
+          data: [
+            sentimentCount.POSITIVE,
+            sentimentCount.NEUTRAL,
+            sentimentCount.NEGATIVE,
+          ],
+          backgroundColor: [
+            "rgba(76, 175, 80, 0.7)",
+            "rgba(255, 152, 0, 0.7)",
+            "rgba(244, 67, 54, 0.7)",
+          ],
+          borderColor: [
+            "rgba(76, 175, 80, 1)",
+            "rgba(255, 152, 0, 1)",
+            "rgba(244, 67, 54, 1)",
+          ],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "bottom",
+        },
+      },
+    },
+  });
+}
+
+// Due date calculator
+function calculateDueDate() {
+  const lmpDate = new Date(document.getElementById("lmp-date").value);
+  const cycleLength = parseInt(document.getElementById("cycle-length").value);
+
+  if (isNaN(lmpDate.getTime())) {
+    alert("Please enter a valid date for your last menstrual period.");
+    return;
+  }
+
+  const dueDate = new Date(lmpDate);
+  dueDate.setDate(dueDate.getDate() + 280);
+
+  const cycleAdjustment = (cycleLength - 28) * 0.15;
+  dueDate.setDate(dueDate.getDate() + Math.round(cycleAdjustment));
+
+  const today = new Date();
+  const daysPassed = Math.floor((today - lmpDate) / (1000 * 60 * 60 * 24));
+  const weeksPassed = Math.floor(daysPassed / 7);
+  const progressPercent = Math.min(100, (daysPassed / 280) * 100);
+
+  const resultDiv = document.getElementById("due-date-result");
+  resultDiv.innerHTML = `
+                <h3>${formatDate(dueDate.toISOString())}</h3>
+                <p>Based on your last menstrual period and cycle length</p>
+            `;
+
+  const progressBar = document.getElementById("pregnancy-progress");
+  progressBar.style.width = `${progressPercent}%`;
+
+  document.getElementById("pregnancy-weeks").textContent =
+    `${weeksPassed} weeks ${daysPassed % 7} days`;
+}
+
+// Community functions
+function handleFeedbackSubmission(e) {
+  e.preventDefault();
+
+  if (!currentUser) {
+    alert("Please login to submit feedback.");
+    document.getElementById("auth-modal").style.display = "block";
+    return;
+  }
+
+  const name = document.getElementById("feedback-name").value;
+  const content = document.getElementById("feedback-content").value;
+
+  if (!name || !content) {
+    alert("Please fill out all fields.");
+    return;
+  }
+
+  const feedbacks = JSON.parse(localStorage.getItem("feedbacks")) || [];
+
+  const newFeedback = {
+    id: Date.now(),
+    userId: currentUser.id,
+    userName: name,
+    content: content,
+    date: new Date().toISOString(),
+    likes: 0,
+    comments: [],
+  };
+
+  feedbacks.push(newFeedback);
+
+  localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
+
+  document.getElementById("feedback-form").reset();
+
+  updateForumTopics();
+
+  alert("Thank you for your feedback! It has been posted to the community.");
+}
+
+function updateForumTopics() {
+  const feedbacks = JSON.parse(localStorage.getItem("feedbacks")) || [];
+  const forumTopics = document.getElementById("forum-topics");
+
+  if (feedbacks.length === 0) {
+    forumTopics.innerHTML =
+      "<p>No discussions yet. Be the first to start a conversation!</p>";
+    return;
+  }
+
+  const recentFeedbacks = feedbacks
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 3);
+
+  let forumHTML = "";
+
+  recentFeedbacks.forEach((feedback) => {
+    const date = new Date(feedback.date);
+    const timeAgo = getTimeAgo(date);
+
+    forumHTML += `
+                    <div class="forum-topic">
+                        <h4><i class="fas fa-comment"></i> ${feedback.content.substring(0, 60)}${feedback.content.length > 60 ? "..." : ""}</h4>
+                        <p>${feedback.comments.length} comments • Started by ${feedback.userName} ${timeAgo}</p>
+                    </div>
+                `;
+  });
+
+  forumTopics.innerHTML = forumHTML;
+}
+
+// Mobile menu functionality
+document.addEventListener("DOMContentLoaded", function () {
+  const mobileMenuBtn = document.getElementById("mobile-menu-toggle");
+  const navMenu = document.getElementById("nav-menu");
+
+  if (mobileMenuBtn && navMenu) {
+    mobileMenuBtn.addEventListener("click", function () {
+      navMenu.classList.toggle("active");
+      mobileMenuBtn.classList.toggle("active");
+    });
+
+    const navLinks = navMenu.querySelectorAll("a");
+    navLinks.forEach((link) => {
+      link.addEventListener("click", function () {
+        navMenu.classList.remove("active");
+        mobileMenuBtn.classList.remove("active");
+      });
+    });
+
+    document.addEventListener("click", function (event) {
+      if (
+        !event.target.closest("nav") &&
+        !event.target.closest(".mobile-menu-btn")
+      ) {
+        navMenu.classList.remove("active");
+        mobileMenuBtn.classList.remove("active");
+      }
+    });
+  }
+});
+
+// Initialize the application when DOM is loaded
+document.addEventListener("DOMContentLoaded", function () {
+  initApp();
+});
+
+    </script>
     <script src="scripts.js"></script>
   </body>
 </html>
