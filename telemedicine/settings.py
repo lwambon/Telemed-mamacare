@@ -37,6 +37,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://your-frontend.onrender.com",
     "http://localhost:3000",  # For local development
 ]
+CORS_ALLOW_ALL_ORIGINS = True 
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'telemedicine.urls'
 
