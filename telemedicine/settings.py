@@ -32,6 +32,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "https://your-frontend.onrender.com",
+    "http://localhost:3000",  # For local development
+]
+
 ROOT_URLCONF = 'telemedicine.urls'
 
 TEMPLATES = [
